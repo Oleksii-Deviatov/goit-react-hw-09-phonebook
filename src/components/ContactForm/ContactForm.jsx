@@ -34,6 +34,11 @@ function ContactForm({ contacts, addContact }) {
 
     switch (true) {
       case inputName === '':
+        toast.error('Name can not be empty');
+        return;
+
+      case inputNumber === '':
+        toast.error('Number can not be empty');
         return;
 
       case checkExistContact():
@@ -42,6 +47,7 @@ function ContactForm({ contacts, addContact }) {
 
       default:
         addContact({ name: inputName, number: inputNumber });
+        toast.info(`${inputName} saved`);
         clrForm();
         break;
     }
@@ -55,14 +61,12 @@ function ContactForm({ contacts, addContact }) {
           value={inputName}
           onChange={inputNameHandler}
           margin="dense"
-          required
         />
         <TextField
           label="Number"
           value={inputNumber}
           onChange={inputNumberHendler}
           margin="dense"
-          required
         />
         <Button variant="outlined" type="submit" color="primary">
           add contact

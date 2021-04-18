@@ -31,4 +31,15 @@ const delContact = id => dispatch => {
     .catch(error => dispatch(actions.delContactsError(error)));
 };
 
-export { fetchContacts, addContact, delContact };
+const changeContact = ({ id, name, number }) => dispatch => {
+  const update = { name, number };
+
+  dispatch(actions.changeContactRequest());
+
+  axios
+    .patch(`/contacts/${id}`, update)
+    .then(({ data }) => dispatch(actions.changeContactSuccess(data)))
+    .catch(error => dispatch(actions.changeContactError(error.message)));
+};
+
+export { fetchContacts, addContact, delContact, changeContact };
