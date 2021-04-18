@@ -42,7 +42,7 @@ function ContactForm({ contacts, addContact }) {
 
       default:
         addContact({ name: inputName, number: inputNumber });
-        clrForm(),;
+        clrForm();
         break;
     }
   }
