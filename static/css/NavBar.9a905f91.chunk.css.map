@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/NavigationBar/styles.module.css"],"names":[],"mappings":"AAAA,wBACE,iBACF,CAEA,yBACE,WACF","file":"NavBar.9a905f91.chunk.css","sourcesContent":[".barTitle {\n  margin-right: auto;\n}\n\n.greetings {\n  flex-grow: 1;\n}\n"]}

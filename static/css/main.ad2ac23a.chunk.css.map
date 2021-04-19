@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Spinner/styles.module.css"],"names":[],"mappings":"AAAA,uBACE,iBAAkB,CAClB,OAAQ,CACR,QAAS,CACT,0BACF","file":"main.ad2ac23a.chunk.css","sourcesContent":[".spinner {\n  position: absolute;\n  top: 23%;\n  left: 50%;\n  transform: translateX(-50%);\n}\n"]}
