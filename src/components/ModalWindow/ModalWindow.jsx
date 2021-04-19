@@ -105,7 +105,7 @@ const ModalWindow = ({
             type="submit"
             color="primary"
           >
-            edit contact
+            save
           </Button>
         </form>
       </div>
