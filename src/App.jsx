@@ -40,9 +40,7 @@ function App({ onGetCurrentUser, isLoadingUser }) {
     <>
       <Container maxWidth="xs">
         <Suspense fallback={<Spinner />}>
-          {/* код что что закоментирован как бе решает проблему с маршрутами, но появляются перезагрузки страниц
-          что как бе вааще не ок */}
-          {/* {isLoadingUser || (
+          {isLoadingUser || (
             <>
               <NavBar />
               <Switch>
@@ -77,8 +75,9 @@ function App({ onGetCurrentUser, isLoadingUser }) {
                 <Redirect to="/" />
               </Switch>
             </>
-          )} */}
-          <NavBar />
+          )}
+
+          {/* <NavBar />
           <Switch>
             <PublicRoute
               exact
@@ -109,7 +108,8 @@ function App({ onGetCurrentUser, isLoadingUser }) {
             />
 
             <Redirect to="/" />
-          </Switch>
+          </Switch> */}
+
           <ToastContainer
             position="top-right"
             autoClose={2000}

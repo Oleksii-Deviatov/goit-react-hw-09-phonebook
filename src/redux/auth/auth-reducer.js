@@ -39,21 +39,21 @@ const isAuthenticated = createReducer(false, {
 const isLoadingUser = createReducer(true, {
   [authActions.noToken]: () => false,
 
-  [authActions.registrationSuccess]: () => false,
-  [authActions.registrationError]: () => false,
-  [authActions.registrationRequest]: () => true,
+  // [authActions.registrationSuccess]: () => false,
+  // [authActions.registrationError]: () => false,
+  // [authActions.registrationRequest]: () => true,
 
-  [authActions.loginSuccess]: () => false,
-  [authActions.loginError]: () => false,
-  [authActions.loginRequest]: () => true,
+  // [authActions.loginSuccess]: () => true,
+  // [authActions.loginError]: () => true,
+  // [authActions.loginRequest]: () => true,
 
   [authActions.getCurrentUserSuccess]: () => false,
   [authActions.getCurrentUserError]: () => false,
   [authActions.getCurrentUserRequest]: () => true,
 
-  [authActions.logoutSuccess]: () => false,
-  [authActions.logoutError]: () => false,
-  [authActions.logoutRequest]: () => true,
+  // [authActions.logoutSuccess]: () => false,
+  // [authActions.logoutError]: () => false,
+  // [authActions.logoutRequest]: () => true,
 });
 
 export default combineReducers({

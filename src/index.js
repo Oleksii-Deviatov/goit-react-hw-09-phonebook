@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-// import { BrowserRouter as Router } from 'react-router-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import { HashRouter as Router } from 'react-router-dom';
 import App from './App';
 import 'modern-normalize/modern-normalize.css';
 
