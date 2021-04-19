@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Box } from '@material-ui/core';
 import { connect } from 'react-redux';
 import * as operations from '../../redux/auth/auth-operations';
 import { Container } from '@material-ui/core';
 
-function LoginPage({ onLogin }) {
+import { getError } from '../../redux/auth/auth-selectors';
+import { toast } from 'react-toastify';
+
+function LoginPage({ onLogin, error }) {
   const [inputEmain, setInputEmain] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -24,7 +27,16 @@ function LoginPage({ onLogin }) {
       password: inputPassword,
     };
 
+    // if (getError) {
+    //   console.log('wrong');
+    //   toast.error('Wrong email or password');
+    //   return;
+    // }
+
     onLogin(userData);
+    if (!getError) {
+      toast.info('Logged in');
+    }
   }
 
   return (
@@ -55,8 +67,12 @@ function LoginPage({ onLogin }) {
   );
 }
 
+const mapStateToProps = state => ({
+  error: getError(state),
+});
+
 const mapDispatchToProps = {
   onLogin: operations.login,
 };
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -3,7 +3,6 @@ import Filter from '../Filter';
 import ContactList from '../ContactList';
 import Spinner from '../Spinner';
 import { Container, Typography } from '@material-ui/core';
-import { ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
 import { getLoading } from '../../redux/contacts/contacts-selectors';
 
@@ -25,18 +24,6 @@ function Home({ isLoading }) {
 
         <ContactList />
       </Container>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </>
   );
 }
