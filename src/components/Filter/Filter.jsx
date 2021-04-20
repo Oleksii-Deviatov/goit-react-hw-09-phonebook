@@ -1,11 +1,14 @@
-import { connect } from 'react-redux';
-import { TextField, Box } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 import { getFilter } from '../../redux/contacts/contacts-selectors';
-import * as actions from '../../redux/contacts/contacts-actions';
+import { changeFilter } from '../../redux/contacts/contacts-actions';
+import { TextField, Box } from '@material-ui/core';
 
-function Filter({ onChange, value }) {
+function Filter() {
+  const value = useSelector(state => getFilter(state));
+  const dispatch = useDispatch();
+
   function inputFilterHendler({ target: { value } }) {
-    onChange(value);
+    dispatch(changeFilter(value));
   }
 
   return (
@@ -22,16 +25,4 @@ function Filter({ onChange, value }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    value: getFilter(state),
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onChange: value => dispatch(actions.changeFilter(value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;

@@ -2,11 +2,13 @@ import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
 import Spinner from '../Spinner';
-import { Container, Typography } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getLoading } from '../../redux/contacts/contacts-selectors';
+import { Container, Typography } from '@material-ui/core';
 
-function Home({ isLoading }) {
+function Home() {
+  const isLoading = useSelector(state => getLoading(state));
+
   return (
     <>
       <Container maxWidth="xs">
@@ -28,10 +30,4 @@ function Home({ isLoading }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoading: getLoading(state),
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;

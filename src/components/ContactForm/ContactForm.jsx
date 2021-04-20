@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { TextField, Button, Box } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { getAllContacts } from '../../redux/contacts/contacts-selectors';
-import * as operations from '../../redux/contacts/contacts-operations';
+import { addContact } from '../../redux/contacts/contacts-operations';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ContactForm({ contacts, addContact }) {
+function ContactForm() {
+  const contacts = useSelector(state => getAllContacts(state));
+  const dispatch = useDispatch();
+
   const [inputName, setInputName] = useState('');
   const [inputNumber, setInputNumber] = useState('');
 
@@ -46,7 +49,8 @@ function ContactForm({ contacts, addContact }) {
         return;
 
       default:
-        addContact({ name: inputName, number: inputNumber });
+        const data = { name: inputName, number: inputNumber };
+        dispatch(addContact(data));
         toast.info(`${inputName} saved`);
         clrForm();
         break;
@@ -76,16 +80,4 @@ function ContactForm({ contacts, addContact }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    contacts: getAllContacts(state),
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addContact: data => dispatch(operations.addContact(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;

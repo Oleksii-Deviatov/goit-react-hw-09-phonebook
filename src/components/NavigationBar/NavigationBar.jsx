@@ -1,5 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,10 +8,15 @@ import {
   getIsAuthenticated,
   getUsername,
 } from '../../redux/auth/auth-selectors';
-import * as operations from '../../redux/auth/auth-operations';
+import { logout } from '../../redux/auth/auth-operations';
 import styles from './styles.module.css';
 
-function NavigationBar({ isAuthenticated, getUsername, onLogout }) {
+function NavigationBar() {
+  const isAuthenticated = useSelector(state => getIsAuthenticated(state));
+  const userName = useSelector(state => getUsername(state));
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <AppBar position="static">
@@ -42,12 +46,12 @@ function NavigationBar({ isAuthenticated, getUsername, onLogout }) {
 
           {isAuthenticated && (
             <Typography variant="h6" className={styles.greetings}>
-              Welcome {getUsername} !
+              Welcome {userName} !
             </Typography>
           )}
 
           {isAuthenticated && (
-            <Button onClick={onLogout} color="inherit">
+            <Button onClick={() => dispatch(logout())} color="inherit">
               logout
             </Button>
           )}
@@ -57,13 +61,4 @@ function NavigationBar({ isAuthenticated, getUsername, onLogout }) {
   );
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: getIsAuthenticated(state),
-  getUsername: getUsername(state),
-});
-
-const mapDispatchToProps = {
-  onLogout: operations.logout,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
+export default NavigationBar;

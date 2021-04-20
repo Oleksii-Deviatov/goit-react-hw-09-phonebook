@@ -7,15 +7,17 @@ import {
 } from '@material-ui/core';
 import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import EditIcon from '@material-ui/icons/Edit';
-import { connect } from 'react-redux';
-import styles from './styles.module.css';
 import ListItem from '@material-ui/core/ListItem';
-import * as operations from '../../redux/contacts/contacts-operations';
+import { delContact } from '../../redux/contacts/contacts-operations';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ModalWindow from '../ModalWindow';
 import { toast } from 'react-toastify';
+import styles from './styles.module.css';
 
-function Conact({ id, name, number, delContact }) {
+function Contact({ id, name, number }) {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = e => {
@@ -27,7 +29,7 @@ function Conact({ id, name, number, delContact }) {
   };
 
   function handleDelet(id) {
-    delContact(id);
+    dispatch(delContact(id));
     toast.info(`${name} deleted`);
   }
 
@@ -73,10 +75,4 @@ function Conact({ id, name, number, delContact }) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    delContact: id => dispatch(operations.delContact(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Conact);
+export default Contact;

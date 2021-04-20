@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Container } from '@material-ui/core';
-import { connect } from 'react-redux';
-import * as operations from '../../redux/auth/auth-operations';
-// import { getError } from '../../redux/auth/auth-selectors';
-// import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/auth-operations';
 
-function RegisterPage({ onRegister, getError }) {
+function RegisterPage() {
+  const dispatch = useDispatch();
+
   const [inputName, setInputName] = useState('');
   const [inputEmain, setInputEmain] = useState('');
   const [inputPassword, setInputPassword] = useState('');
@@ -31,11 +31,7 @@ function RegisterPage({ onRegister, getError }) {
       password: inputPassword,
     };
 
-    onRegister(userData);
-
-    // if (!getError) {
-    //   toast.info('Successfully registered');
-    // }
+    dispatch(register(userData));
   }
 
   return (
@@ -73,12 +69,4 @@ function RegisterPage({ onRegister, getError }) {
   );
 }
 
-// const mapStateToProps = state => ({
-//   getError: getError(state),
-// });
-
-const mapDispatchToProps = {
-  onRegister: operations.register,
-};
-
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default RegisterPage;

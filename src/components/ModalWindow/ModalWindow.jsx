@@ -1,10 +1,13 @@
 import { Box, Modal, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllContacts } from '../../redux/contacts/contacts-selectors';
 import { toast } from 'react-toastify';
-import * as operations from '../../redux/contacts/contacts-operations';
+import {
+  changeContact,
+  fetchContacts,
+} from '../../redux/contacts/contacts-operations';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -24,16 +27,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ModalWindow = ({
-  contacts,
-  id,
-  name,
-  number,
-  changeContact,
-  fetchContacts,
-  onClose,
-  ...modalProps
-}) => {
+const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
+  const contacts = useSelector(state => getAllContacts(state));
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const [inputName, setInputName] = useState(name);
   const [inputNumber, setInputNumber] = useState(number);
@@ -73,8 +70,9 @@ const ModalWindow = ({
         return;
 
       default:
-        changeContact({ id: id, name: inputName, number: inputNumber });
-        fetchContacts();
+        const editedContact = { id: id, name: inputName, number: inputNumber };
+        dispatch(changeContact(editedContact));
+        dispatch(fetchContacts());
         toast.info(`saved`);
         onClose();
         break;
@@ -113,17 +111,4 @@ const ModalWindow = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    contacts: getAllContacts(state),
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeContact: data => dispatch(operations.changeContact(data)),
-    fetchContacts: () => dispatch(operations.fetchContacts()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow);
+export default ModalWindow;
