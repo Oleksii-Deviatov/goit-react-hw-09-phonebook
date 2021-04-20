@@ -21,3 +21,5 @@ export const changeContactSuccess = createAction(
 export const changeContactError = createAction('contacts/changeContactError');
 
 export const changeFilter = createAction('contacts/changeFilter');
+
+export const clearContacts = createAction('contacts/clear');

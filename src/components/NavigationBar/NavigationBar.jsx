@@ -17,6 +17,7 @@ function NavigationBar() {
 
   const dispatch = useDispatch();
 
+  function logou(params) {}
   return (
     <>
       <AppBar position="static">

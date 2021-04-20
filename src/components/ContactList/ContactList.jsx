@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchContacts } from '../../redux/contacts/contacts-operations';
 import { getVisibleContacts } from '../../redux/contacts/contacts-selectors';
+import { clearContacts } from '../../redux/contacts/contacts-actions';
 
 function ContactList() {
   const contacts = useSelector(state => getVisibleContacts(state));
@@ -11,6 +12,10 @@ function ContactList() {
 
   useEffect(() => {
     dispatch(fetchContacts());
+    return () => {
+      console.log('numount');
+      dispatch(clearContacts());
+    };
   }, []);
 
   return (
