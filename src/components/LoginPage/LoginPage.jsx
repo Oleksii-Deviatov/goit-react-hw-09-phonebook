@@ -6,14 +6,18 @@ import { Container } from '@material-ui/core';
 
 import { toast } from 'react-toastify';
 import { getError } from '../../redux/auth/auth-selectors';
+import { useEffect } from 'react';
 
 function LoginPage() {
   const dispatch = useDispatch();
-
   const loginError = useSelector(state => getError(state));
 
-  const [inputEmain, setInputEmain] = useState('');
+  const [inputEmail, setInputEmain] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+
+  useEffect(() => {
+    loginError && toast.error('incorrect email or password');
+  }, [loginError]);
 
   function inputNumberHendler({ target: { value } }) {
     setInputEmain(value);
@@ -27,13 +31,11 @@ function LoginPage() {
     e.preventDefault();
 
     const userData = {
-      email: inputEmain,
+      email: inputEmail,
       password: inputPassword,
     };
 
     dispatch(login(userData));
-
-    toast.error(loginError);
   }
 
   return (
@@ -42,7 +44,7 @@ function LoginPage() {
         <Box display="flex" flexDirection="column">
           <TextField
             label="E-Mail"
-            value={inputEmain}
+            value={inputEmail}
             onChange={inputNumberHendler}
             margin="dense"
             required

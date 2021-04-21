@@ -27,6 +27,7 @@ const register = credentials => async dispatch => {
 };
 
 const login = credentials => async dispatch => {
+  dispatch(authActions.clearAuthError());
   dispatch(authActions.loginRequest());
 
   try {
@@ -34,7 +35,7 @@ const login = credentials => async dispatch => {
 
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
-    dispatch(authActions.clearAuthError());
+    // dispatch(authActions.clearAuthError());
   } catch (error) {
     dispatch(authActions.loginError(error.message));
   }
