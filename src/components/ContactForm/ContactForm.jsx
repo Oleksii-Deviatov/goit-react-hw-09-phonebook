@@ -4,7 +4,6 @@ import { getAllContacts } from '../../redux/contacts/contacts-selectors';
 import { addContact } from '../../redux/contacts/contacts-operations';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import 'react-toastify/dist/ReactToastify.css';
 
 function ContactForm() {
   const contacts = useSelector(state => getAllContacts(state));

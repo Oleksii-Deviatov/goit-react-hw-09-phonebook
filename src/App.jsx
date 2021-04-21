@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import Spinner from './components/Spinner';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getStatusLoadingUser } from './redux/auth/auth-selectors';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -78,19 +79,17 @@ function App() {
               </Switch>
             </>
           )}
-
-          <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
         </Suspense>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable
+          pauseOnHover
+        />
       </Container>
     </>
   );
