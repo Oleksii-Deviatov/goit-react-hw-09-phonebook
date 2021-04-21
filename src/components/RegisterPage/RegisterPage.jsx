@@ -5,13 +5,17 @@ import { register } from '../../redux/auth/auth-operations';
 import { toast } from 'react-toastify';
 import { getError } from '../../redux/auth/auth-selectors';
 import { useEffect } from 'react';
+import { clearAuthError } from '../../redux/auth/auth-actions';
 
 function RegisterPage() {
   const dispatch = useDispatch();
   const loginError = useSelector(state => getError(state));
 
   useEffect(() => {
-    loginError && toast.error('registration error, email is already taken');
+    loginError && toast.error('incorrect email or password');
+    return () => {
+      dispatch(clearAuthError());
+    };
   }, [loginError]);
 
   const [inputName, setInputName] = useState('');

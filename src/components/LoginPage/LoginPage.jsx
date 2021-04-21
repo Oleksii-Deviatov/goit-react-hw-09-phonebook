@@ -6,6 +6,7 @@ import { Container } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import { getError } from '../../redux/auth/auth-selectors';
 import { useEffect } from 'react';
+import { clearAuthError } from '../../redux/auth/auth-actions';
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ function LoginPage() {
 
   useEffect(() => {
     loginError && toast.error('incorrect email or password');
+    return () => {
+      dispatch(clearAuthError());
+    };
   }, [loginError]);
 
   function inputNumberHendler({ target: { value } }) {
