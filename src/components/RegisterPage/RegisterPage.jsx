@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Container } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/auth/auth-operations';
+import { toast } from 'react-toastify';
+import { getError } from '../../redux/auth/auth-selectors';
+import { useEffect } from 'react';
 
 function RegisterPage() {
   const dispatch = useDispatch();
+  const loginError = useSelector(state => getError(state));
+
+  useEffect(() => {
+    loginError && toast.error('registration error, email is already taken');
+  }, [loginError]);
 
   const [inputName, setInputName] = useState('');
   const [inputEmain, setInputEmain] = useState('');
