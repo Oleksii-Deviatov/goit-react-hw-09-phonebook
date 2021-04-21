@@ -61,12 +61,12 @@ const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
         toast.error('Number can not be empty');
         return;
 
-      case inputName === name: // тут бага с редактированием контакта
-        onClose();
-        return;
-
       case checkExistContact():
         toast.error(`${inputName} already exist`);
+        return;
+
+      case inputName === name: // тут бага с редактированием контакта
+        onClose();
         return;
 
       default:

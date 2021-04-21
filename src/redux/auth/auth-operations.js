@@ -20,6 +20,7 @@ const register = credentials => async dispatch => {
 
     token.set(response.data.token);
     dispatch(authActions.registrationSuccess(response.data));
+    dispatch(authActions.clearAuthError);
   } catch (error) {
     dispatch(authActions.registrationError(error.message));
   }
@@ -33,6 +34,7 @@ const login = credentials => async dispatch => {
 
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
+    dispatch(authActions.clearAuthError());
   } catch (error) {
     dispatch(authActions.loginError(error.message));
   }
@@ -46,6 +48,7 @@ const logout = () => async dispatch => {
 
     token.unset();
     dispatch(authActions.logoutSuccess(response.data));
+    dispatch(authActions.clearAuthError());
   } catch (error) {
     dispatch(authActions.logoutError(error.message));
   }
@@ -63,6 +66,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
   token.set(persistedToken);
   dispatch(authActions.getCurrentUserRequest());
+  dispatch(authActions.clearAuthError());
 
   try {
     const response = await axios.get('/users/current');

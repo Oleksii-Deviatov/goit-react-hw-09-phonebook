@@ -13,7 +13,6 @@ function ContactList() {
   useEffect(() => {
     dispatch(fetchContacts());
     return () => {
-      console.log('numount');
       dispatch(clearContacts());
     };
   }, []);
