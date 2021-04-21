@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
+const EditContact = ({ contactId, name, number, onClose, ...modalProps }) => {
   const contacts = useSelector(state => getAllContacts(state));
   const dispatch = useDispatch();
 
@@ -52,6 +52,12 @@ const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
       );
     }
 
+    function isNotNowEditing() {
+      return !!contacts
+        .filter(({ id }) => id !== contactId)
+        .find(({ name }) => name.toLowerCase() === inputName.toLowerCase());
+    }
+
     switch (true) {
       case inputName === '':
         toast.error('Name can not be empty');
@@ -61,16 +67,16 @@ const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
         toast.error('Number can not be empty');
         return;
 
-      case checkExistContact():
+      case checkExistContact() && isNotNowEditing(): // мне не нравится эта реализация, но другой придумать не могу
         toast.error(`${inputName} already exist`);
         return;
 
-      case inputName === name: // тут бага с редактированием контакта
-        onClose();
-        return;
-
       default:
-        const editedContact = { id: id, name: inputName, number: inputNumber };
+        const editedContact = {
+          id: contactId,
+          name: inputName,
+          number: inputNumber,
+        };
         dispatch(changeContact(editedContact));
         dispatch(fetchContacts());
         toast.info(`saved`);
@@ -111,4 +117,4 @@ const ModalWindow = ({ id, name, number, onClose, ...modalProps }) => {
   );
 };
 
-export default ModalWindow;
+export default EditContact;

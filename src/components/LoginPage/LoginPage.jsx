@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { TextField, Button, Box } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/auth/auth-operations';
 import { Container } from '@material-ui/core';
 
+import { toast } from 'react-toastify';
+import { getError } from '../../redux/auth/auth-selectors';
+
 function LoginPage() {
   const dispatch = useDispatch();
+
+  const loginError = useSelector(state => getError(state));
 
   const [inputEmain, setInputEmain] = useState('');
   const [inputPassword, setInputPassword] = useState('');
@@ -27,6 +32,8 @@ function LoginPage() {
     };
 
     dispatch(login(userData));
+
+    toast.error(loginError);
   }
 
   return (

@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { delContact } from '../../redux/contacts/contacts-operations';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import ModalWindow from '../ModalWindow';
+import EditContact from '../EditContact';
 import { toast } from 'react-toastify';
 import styles from './styles.module.css';
 
@@ -63,12 +63,12 @@ function Contact({ id, name, number }) {
         </CardActionArea>
       </Card>
       {open && (
-        <ModalWindow
+        <EditContact
           open={open}
           onClose={handleClose}
           name={name}
           number={number}
-          id={id}
+          contactId={id}
         />
       )}
     </ListItem>
