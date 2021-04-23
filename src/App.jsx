@@ -8,7 +8,10 @@ import PublicRoute from './components/PublicRoute';
 import Spinner from './components/Spinner';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getStatusLoadingUser } from './redux/auth/auth-selectors';
+import {
+  getStatusLoadingUser,
+  getIsAuthenticated,
+} from './redux/auth/auth-selectors';
 import { useSelector, useDispatch } from 'react-redux';
 
 const NavBar = lazy(() =>
@@ -33,6 +36,7 @@ const LoginPage = lazy(() =>
 
 function App() {
   const isLoadingUser = useSelector(state => getStatusLoadingUser(state));
+  const isAuthenticated = useSelector(state => getIsAuthenticated(state));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,6 +55,7 @@ function App() {
                 path="/"
                 restricted
                 redirectTo="/home"
+                isAuthenticated={isAuthenticated}
                 component={StartPage}
               />
 
@@ -58,6 +63,7 @@ function App() {
                 path="/register"
                 restricted
                 redirectTo="/home"
+                isAuthenticated={isAuthenticated}
                 component={RegisterPage}
               />
 
@@ -65,12 +71,14 @@ function App() {
                 path="/login"
                 restricted
                 redirectTo="/home"
+                isAuthenticated={isAuthenticated}
                 component={LoginPage}
               />
 
               <PrivateRoute
                 path="/home"
                 redirectTo="/login"
+                isAuthenticated={isAuthenticated}
                 component={HomePage}
               />
 
